@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>House Price Prediction</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg-start: #0f172a;
+            --bg-end: #1e293b;
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --success: #10b981;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+            color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .form-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            max-width: 480px;
+            width: 100%;
+        }
+        
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .sticker {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+        
+        h1 {
+            font-weight: 700;
+            font-size: 1.75rem;
+            letter-spacing: -0.025em;
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+        }
+        
+        .input-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #cbd5e1;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #f8fafc;
+            outline: none;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        input[type="number"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        }
+        
+        input[type="number"]::placeholder {
+            color: #64748b;
+        }
+        
+        .button {
+            width: 100%;
+            padding: 0.875rem;
+            margin-top: 1.5rem;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .button:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+        
+        .button:active {
+            transform: translateY(1px);
+        }
+        
+        .result {
+            margin-top: 2rem;
+            padding: 1.25rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .result-text {
+            font-size: 1rem;
+            color: #94a3b8;
+            margin-bottom: 0.25rem;
+        }
+        
+        .price {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--success);
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        @media (max-width: 640px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="header">
+            <img src="{{ url_for('static', filename='3DHome.png') }}" alt="House Icon" class="sticker">
+            <h1>House Price Prediction</h1>
+            <p class="subtitle">Enter property details to estimate market value</p>
+        </div>
+        
+        <form method="POST">
+            <div class="form-grid">
+                <div class="input-group">
+                    <label for="feature1">Overall Quality (1–10)</label>
+                    <input type="number" id="feature1" name="feature1" min="1" max="10" step="any" placeholder="1-10" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="feature2">Living Area (GrLivArea)</label>
+                    <input type="number" id="feature2" name="feature2" step="any" placeholder="Square feet" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="feature3">Garage Capacity </label>
+                    <input type="number" id="feature3" name="feature3" step="any" placeholder="Cars" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="feature4">Total Basement Area (sqft)</label>
+                    <input type="number" id="feature4" name="feature4" step="any" placeholder="Square feet" required>
+                </div>
+            </div>
+            
+            <button class="button" type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 16v-4"/>
+                    <path d="M12 8h.01"/>
+                </svg>
+                Predict Price
+            </button>
+        </form>
+        
+        {% if prediction %}
+        <div class="result">
+            <p class="result-text">Predicted House Price</p>
+            <div class="price">${{ prediction }}</div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>  
