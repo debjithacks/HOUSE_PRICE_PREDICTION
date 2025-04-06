@@ -3,7 +3,7 @@
 
 A machine learning-powered web application that predicts house prices based on key features like quality, living area, garage capacity, and basement size. This project integrates **Python**, **Flask**, **HTML/CSS**, and **scikit-learn**, making it a perfect blend of **data science** and **web development**.
 
-![Screenshot](./static/asset.png.png)
+![Screenshot](./static/asset.png)
 
 ---
 
